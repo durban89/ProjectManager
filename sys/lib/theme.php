@@ -14,7 +14,7 @@ class Theme{
 	private $footer_list = array();
 
 	/**
-	 * 初始化钩子
+	 * 初始化钩子,并在文件头中加入是否登录的js变量
 	 */
 	function __construct(){
 		hook()->add('pm_header', array(
@@ -25,6 +25,7 @@ class Theme{
 			$this,
 			'footer_hook'
 		));
+		$this->header_add("<script>var PM_USER_LOGIN_STATUS = " . (is_login() ? "true" : "false") . ";</script>", 40);
 	}
 
 	/**

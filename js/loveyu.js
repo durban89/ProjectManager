@@ -7,4 +7,17 @@ $(function () {
 			$(elem).attr("target", "_blank");
 		}
 	});
+	if (PM_PAGE_ID != undefined && PM_PAGE_ID > 0) {
+		//对可以访问的文章进行访问统计
+		$.post(SITE_URL + "Home/page_view", {id:PM_PAGE_ID}, function (data) {
+			if (data['view'] != undefined) {
+				//统计存在的操作
+			}
+		});
+	}
+	if (PM_USER_LOGIN_STATUS != undefined && PM_USER_LOGIN_STATUS) {
+		//当用户登录时的操作
+	} else {
+		//非登录用户的操作
+	}
 });

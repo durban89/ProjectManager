@@ -1,6 +1,14 @@
 <?php
 namespace UView;
 class Page extends \Core\Page{
+
+	/**
+	 * 构造函数，生成页面网址参数
+	 */
+	public function __construct(){
+		theme()->header_add("<script>var SITE_URL = '" . URL_WEB . "';</script>", 0);
+	}
+
 	/**
 	 * 项目页面
 	 * @param $project
@@ -17,6 +25,7 @@ class Page extends \Core\Page{
 				set_title($pj->title() . " - " . $pj->project_title());
 			}
 			theme()->set_desc($pj->desc());
+			theme()->header_add("<script>var PM_PAGE_ID = " . $pj->id() . ";</script>", 40);
 			theme()->set_keywords($pj->keywords());
 			header("Content-Type:text/html; charset=utf-8");
 			$this->__view('comm/header.php');
@@ -62,7 +71,8 @@ class Page extends \Core\Page{
 		if(\ULib\Router::$begin_status){
 			lib()->load('project', 'menu')->add("project", new \ULib\Project($page, 0));
 			lib()->add('menu', new \ULib\Menu(true));
-			set_title(project()->title(),site_title(false));
+			set_title(project()->title(), site_title(false));
+			theme()->header_add("<script>var PM_PAGE_ID = " . project()->id() . ";</script>", 40);
 			theme()->set_desc(project()->desc());
 			theme()->set_keywords(project()->keywords());
 			header("Content-Type:text/html; charset=utf-8");
